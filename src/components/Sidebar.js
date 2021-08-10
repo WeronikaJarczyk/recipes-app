@@ -1,9 +1,9 @@
-import avatar from '../img/Piotrus.jpg';
+import avatar from '../img/friends_icon.svg';
 
 function Sidebar() {
   return (
     <div className="sidebar">
-      <img src={avatar} alt="Piotruś" className="circle" />
+      <img src={avatar} alt="" className="circle" />
     </div>
   )
 }

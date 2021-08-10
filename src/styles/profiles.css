@@ -1,0 +1,92 @@
+.profile1 {
+  display: flex;
+  flex-direction: row;
+  width: 740px; 
+  background-color: rgb(220, 217, 217);
+}
+
+.side {
+  background-image: linear-gradient(#09EB7E, #01C9DB);
+  width: 30px;
+  height: 100vh;
+}
+
+.container {
+  height: 100vh;
+  width: 700px;
+}
+
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  gap : 30px;
+  position: relative;
+  font-weight: 600;
+}
+
+.circle {
+  background-color: #2F2E41;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+}
+
+.arrow {
+  width: 30px;
+  position: absolute;
+  right: 40px;
+}
+
+.description {
+  display: flex;
+  flex-direction: column;
+  align-items: baseline;
+  margin: 100px;
+  margin-left: 206px;
+  gap:20px;
+}
+
+.description .text {
+  font-size: 20px;
+}
+
+#water {
+  transform: scaleX(50%);
+}
+
+.graph{
+  margin: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.graph-header {
+  font-size: 20px;
+  display: flex;
+  justify-content: start;
+  gap: 10px;
+  position: relative;
+}
+
+.percentage {
+  font-size: 20px;
+  position: absolute;
+  right: 0;
+}
+
+.blue {
+  color: #02A0F5;
+}
+
+.green {
+  color:#09EB7E
+}
+
+.red {
+  color: #F76775;
+}

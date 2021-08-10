@@ -9,11 +9,11 @@ const Navbar = () => {
     <div className="navbar">
       <div className="nav-items">
         <div className="home">
-          <Home />
+          <Home style={{ width: "35px" }} />
         </div>
-        <Today />
-        <Avatar />
-        <Friends />
+        <Today style={{ width: "25px" }} />
+        <Avatar style={{ width: "25px" }} />
+        <Friends style={{ width: "30px" }} />
       </div>
     </div>
   )
