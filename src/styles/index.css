@@ -10,9 +10,26 @@
   color:  #3F3D56;
 }
 
+html  {
+  min-height: 100vh;
+}
+
 .App {
   width: 100vw;
   height: 100vh;
   display: flex;
-  position: relative;
+  /* position: relative; */
+  justify-content: center;
+  align-items: center;
+}
+
+button {
+  background-color: transparent;
+  border: none;
+}
+
+@media only screen and (max-width: 960px) {
+  .App {
+    flex-direction: column;
+  }
 }

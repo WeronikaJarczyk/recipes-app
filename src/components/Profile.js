@@ -2,10 +2,12 @@ import '../styles/profiles.css';
 import { ReactComponent as Arrow } from '../img/arrow.svg';
 import { ReactComponent as Arrow2 } from '../img/arrow2.svg';
 import PercentageBars from './PercentageBars';
+import React from 'react';
 
-export const Profile1 = () => {
+
+export const Profile = React.forwardRef((props, ref) => {
   return (
-    <div className="profile1">
+    <div className="profile1" ref={ref} >
       <div className="side"></div>
 
       <div className="container">
@@ -27,3 +29,4 @@ export const Profile1 = () => {
     </div>
   )
 }
+);

@@ -1,12 +1,14 @@
 import { ReactComponent as Workouts } from '../img/workout.svg';
 import { ReactComponent as Recipes } from '../img/breakfast.svg';
 import { ReactComponent as Water } from '../img/water-bottle.svg';
-import chart from '../img/chart2.png';
+import chart from '../img/chart.svg';
 import '../styles/main.css';
+import React from 'react';
 
-const Main = () => {
+const Main = React.forwardRef((props, ref) => {
+
   return (
-    <div className="main">
+    <div className="main" ref={ref}>
       <div className="chart">
         <img src={chart} alt="" />
       </div>
@@ -27,6 +29,6 @@ const Main = () => {
       </div>
     </div>
   )
-}
+});
 
-export default Main
+export default Main;
