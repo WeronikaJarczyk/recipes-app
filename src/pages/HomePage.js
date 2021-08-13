@@ -4,7 +4,7 @@ import Main from '../components/Main';
 import React, { useState, useRef } from 'react';
 import { SwitchPage } from '../components/SwitchPage';
 import Grid from '@material-ui/core/Grid';
-import { Hidden } from '@material-ui/core';
+import { Hidden, makeStyles } from '@material-ui/core';
 
 export const HomePage = () => {
 
@@ -12,13 +12,13 @@ export const HomePage = () => {
   const pageToOpen = useRef('');
 
   function openPage(page) {
-
     setIsPageOpen(!isPageOpen);
-    // setPageToOpen(page);
     pageToOpen.current = page;
   }
 
-  console.count();
+  const props = { block: "block", none: "none", state: `${isPageOpen}` };
+
+  const classes = useStyles(props);
 
   return (
     <>
@@ -30,6 +30,7 @@ export const HomePage = () => {
           </Hidden>
         </Grid >
         <Grid style={{ display: isPageOpen ? 'block' : 'none' }} lg={isPageOpen && 4} md={isPageOpen && 5} smdown={isPageOpen ? 12 : undefined} item >
+          {/* <Grid className={classes.display} lg={isPageOpen && 4} md={isPageOpen && 5} smdown={isPageOpen ? 12 : undefined} item > */}
           <SwitchPage pageToOpen={pageToOpen.current} />
         </Grid>
       </Grid >
@@ -37,3 +38,10 @@ export const HomePage = () => {
     </>
   )
 }
+
+const useStyles = makeStyles({
+  display: props => ({
+    display: props.state ? props.block : props.none
+  }),
+
+});

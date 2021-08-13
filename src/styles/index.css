@@ -33,3 +33,15 @@ button {
     flex-direction: column;
   }
 }
+
+#water {
+  transform: scaleX(50%);
+}
+
+#calories {
+  transform: scaleX(60%);
+}
+
+#burnt {
+  transform: scaleX(60%);
+}
