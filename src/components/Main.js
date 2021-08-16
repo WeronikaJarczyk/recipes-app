@@ -47,6 +47,10 @@ const useStyles = makeStyles({
       width: "100vw",
       marginTop: "10%"
       /* gap: 10vh; */
+    },
+    "@media only screen and (max-width: 600px)": {
+      height: "100%",
+      justifyContent: "space-evenly"
     }
   },
   chartImg: {

@@ -16,9 +16,7 @@ export const HomePage = () => {
     pageToOpen.current = page;
   }
 
-  const props = { block: "block", none: "none", state: `${isPageOpen}` };
-
-  const classes = useStyles(props);
+  const classes = useStyles(isPageOpen);
 
   return (
     <>
@@ -29,8 +27,8 @@ export const HomePage = () => {
             <Main />
           </Hidden>
         </Grid >
-        <Grid style={{ display: isPageOpen ? 'block' : 'none' }} lg={isPageOpen && 4} md={isPageOpen && 5} smdown={isPageOpen ? 12 : undefined} item >
-          {/* <Grid className={classes.display} lg={isPageOpen && 4} md={isPageOpen && 5} smdown={isPageOpen ? 12 : undefined} item > */}
+        {/* <Grid style={{ display: isPageOpen ? 'block' : 'none' }} lg={isPageOpen && 4} md={isPageOpen && 5} smdown={isPageOpen ? 12 : undefined} item > */}
+        <Grid className={classes.something} lg={isPageOpen && 4} md={isPageOpen && 5} smdown={isPageOpen ? 12 : undefined} item >
           <SwitchPage pageToOpen={pageToOpen.current} />
         </Grid>
       </Grid >
@@ -39,9 +37,9 @@ export const HomePage = () => {
   )
 }
 
-const useStyles = makeStyles({
-  display: props => ({
-    display: props.state ? props.block : props.none
-  }),
 
+const useStyles = makeStyles({
+  something: {
+    display: isPageOpen => isPageOpen ? 'block' : 'none'
+  },
 });
