@@ -12,8 +12,13 @@ export const HomePage = () => {
   const pageToOpen = useRef('');
 
   function openPage(page) {
-    setIsPageOpen(!isPageOpen);
-    pageToOpen.current = page;
+    if (page === "homePage") {
+      setIsPageOpen(false);
+      // pageToOpen.current = page;
+    } else {
+      setIsPageOpen(!isPageOpen);
+      pageToOpen.current = page;
+    }
   }
 
   const classes = useStyles(isPageOpen);
@@ -27,12 +32,11 @@ export const HomePage = () => {
             <Main />
           </Hidden>
         </Grid >
-        {/* <Grid style={{ display: isPageOpen ? 'block' : 'none' }} lg={isPageOpen && 4} md={isPageOpen && 5} smdown={isPageOpen ? 12 : undefined} item > */}
         <Grid className={classes.something} lg={isPageOpen && 4} md={isPageOpen && 5} smdown={isPageOpen ? 12 : undefined} item >
-          <SwitchPage pageToOpen={pageToOpen.current} />
+          <SwitchPage pageToOpen={pageToOpen.current} setIsPageOpen={setIsPageOpen} />
         </Grid>
       </Grid >
-      <Sidebar />
+      {!isPageOpen && <Sidebar />}
     </>
   )
 }

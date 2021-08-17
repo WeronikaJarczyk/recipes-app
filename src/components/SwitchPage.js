@@ -1,9 +1,12 @@
 import { Profile } from './Profile';
+import { useState } from 'react';
 
+export const SwitchPage = ({ pageToOpen, setIsPageOpen }) => {
 
-export const SwitchPage = ({ pageToOpen }) => {
   if (pageToOpen === "userPage") {
-    return <Profile />;
+    return <Profile setIsPageOpen={setIsPageOpen} />;
+  } else if (pageToOpen === "homePage") {
+    return null;
   }
 
   return null;

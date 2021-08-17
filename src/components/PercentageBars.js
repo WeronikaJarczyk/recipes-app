@@ -52,7 +52,6 @@ const PercentageBars = () => {
 const useStyles = makeStyles({
 
   graph: {
-    margin: " 150px 15% 15% 15%",
     display: "flex",
     flexDirection: "column",
     alignItems: "baseline",

@@ -1,37 +1,33 @@
-import React from 'react';
-import PercentageBars from './PercentageBars';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core';
 import { ReactComponent as Arrow } from '../img/arrow.svg';
-import { ReactComponent as Arrow2 } from '../img/arrow2.svg';
+import { ProfileOne } from './ProfileOne';
+import { ProfileForm } from './ProfileForm';
 
-
-export const Profile = React.forwardRef((props, ref) => {
+export const Profile = ({ setIsPageOpen }) => {
 
   const classes = useStyles();
 
+  const [isPageFormOpen, setIsPageFormOpen] = useState(false);
+
   return (
-    <div className={classes.profile} ref={ref} >
+    <div className={classes.profile} >
       <div className={classes.side}></div>
 
       <div className={classes.container}>
         <div className={classes.header}>
           Name Lastname
           <div className={classes.circle}></div>
-          <Arrow className={classes.arrow} />
+          <Arrow onClick={() => {
+            setIsPageOpen(false);
+            setIsPageFormOpen(false);
+          }} className={classes.arrow} />
         </div>
-        <div className={classes.description}>
-          Update Your Profile
-          <div className={classes.text}>
-            You can add or calculate your calorie
-            goals, water intake and sth else
-          </div>
-          <Arrow2 className={classes.arrow2} />
-        </div>
-        <PercentageBars />
+        {isPageFormOpen ? <ProfileForm /> : <ProfileOne openPage={() => setIsPageFormOpen(true)} />}
       </div>
     </div>
   )
-});
+};
 
 const useStyles = makeStyles({
   profile: {
@@ -54,13 +50,14 @@ const useStyles = makeStyles({
   },
   container: {
     height: "100vh",
-    width: "auto",
+    width: "100%",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
     "@media only screen and (max-width: 960px)": {
       padding: "5px",
       width: "360px",
       height: "auto",
-      display: "flex",
-      flexDirection: "column",
       alignItems: "baseline",
       gap: "50px",
       fontSize: "22px"
@@ -89,26 +86,6 @@ const useStyles = makeStyles({
       fontSize: "22px"
     }
   },
-  description: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "baseline",
-    margin: "100px 15% 15% 15%",
-    gap: "20px",
-    fontSize: "24px",
-    "@media only screen and (max-width: 960px)": {
-      margin: "0px"
-    },
-    "@media only screen and (max-width: 600px)": {
-      fontSize: "22px"
-    }
-  },
-  text: {
-    fontSize: "20px",
-    "@media only screen and (max-width: 600px)": {
-      fontSize: "18px"
-    }
-  },
   circle: {
     backgroundColor: "#2F2E41",
     width: "60px",
@@ -121,9 +98,4 @@ const useStyles = makeStyles({
   arrow: {
     width: "30px"
   },
-  arrow2: {
-    "@media only screen and (max-width: 600px)": {
-      width: "20%"
-    }
-  }
 });
