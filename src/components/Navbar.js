@@ -10,10 +10,10 @@ const Navbar = (props) => {
     <div className={classes.navbar} >
       <div className={classes.navItems}>
         <div className={classes.home} >
-          <Home onClick={() => props.open('homePage')} />
+          <Home onClick={() => props.open("homePage")} />
         </div>
-        <Today style={{ width: "25px" }} />
-        <button onClick={() => props.open('userPage')}><Avatar style={{ width: "25px" }} /></button>
+        <Today style={{ width: "25px" }} onClick={() => props.open("dayPlanPage")} />
+        <button onClick={() => props.open("userPage")}><Avatar style={{ width: "25px" }} /></button>
         <Friends style={{ width: "30px" }} />
       </div>
     </div>

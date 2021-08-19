@@ -1,32 +1,59 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Button from './Button';
+import { useForm } from "react-hook-form";
 import { ReactComponent as Clock } from '../img/clock.svg';
 import { TextField, makeStyles } from '@material-ui/core';
+import CaloriesForm from './CaloriesForm';
 
 export const ProfileForm = React.forwardRef((props, ref) => {
 
   const classes = useStyles();
 
+  const [calories, setCalories] = useState();
+
+  const { register, handleSubmit } = useForm();
+
+  const onSubmit = async (data) => {
+    console.log("submit info");
+    try {
+      const body = JSON.stringify({ _id: "610a7baf6e8f5e3184fc0377", data });
+
+      const userInfo = await fetch('/user/info', {
+        method: 'POST',
+        body,
+        headers: {
+          "Content-type": "application/json",
+        },
+      });
+      const json = await userInfo.json();
+      console.log(json);
+      setCalories(json.calorieNeeds);
+      // return json;
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  }
+
   return (
     <div className={classes.content}>
-      <form>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <div className={classes.insideContent}>
           <div className={classes.input}>
             Weight
-            <TextField id="weight" className={classes.inputArea} />
+            <TextField id="weight" className={classes.inputArea} {...register("weight")} />
             kg
           </div>
           <div className={classes.input}>
             Height
-            <TextField id="height" className={classes.inputArea} />
+            <TextField id="height" className={classes.inputArea} {...register("height")} />
             cm
           </div>
           <div className={classes.input}>
             Age
-            <TextField id="age" className={classes.inputArea} />
+            <TextField id="age" className={classes.inputArea} {...register("age")} />
             <div></div>
           </div>
-          <select className={classes.select} name="sex" id="sex-select">
+          <select className={classes.select} name="sex" id="sex-select" {...register("sex")}>
             <option value="male">male</option>
             <option value="female">female</option>
           </select>
@@ -35,6 +62,7 @@ export const ProfileForm = React.forwardRef((props, ref) => {
           Level Of Activity
           <div className={classes.input}>
             <TextField className={classes.inputArea}
+              {...register("timesPerWeek")}
               id="standard-number"
               type="number"
               InputLabelProps={{
@@ -43,22 +71,22 @@ export const ProfileForm = React.forwardRef((props, ref) => {
             /> x per week
           </div>
           <div>
-            <select className={classes.select} name="intensity" id="intensity-select">
+            <select className={classes.select} name="intensity" id="intensity-select" {...register("tempo")}>
               <option value="light">Light</option>
               <option value="moderate">Moderate</option>
               <option value="intense">Intense</option>
             </select>
           </div>
           <div>
-            <select className={classes.select} name="typeOfTraining" id="typeOfTraining-select">
-              <option value="strength">Strength Treining</option>
-              <option value="aero">Aerobic Treining</option>
+            <select className={classes.select} name="trainingType" id="trainingType-select" {...register("trainingType")}>
+              <option value="strength">Strength Training</option>
+              <option value="aero">Aerobic Training</option>
             </select>
           </div>
           <div className={classes.input}>
             <Clock />
-            <TextField className={classes.inputArea} id="time" type="number" />
-            <select name="timeUnit" id="timeUnit-select">
+            <TextField className={classes.inputArea} id="time" type="number" {...register("time")} />
+            <select name="timeUnit" id="timeUnit-select" {...register("unit")}>
               <option value="hour">h</option>
               <option value="minutes">min</option>
             </select>
@@ -66,10 +94,14 @@ export const ProfileForm = React.forwardRef((props, ref) => {
           <Button backgroundColor={"#3F3D56"} text={"Calculate"} />
         </div>
       </form>
-      <form className={classes.insideContent}>
+      <CaloriesForm calories={calories} setCalories={setCalories} />
+      {/* <form className={classes.insideContent}>
         Your Calorie Needs:
         <div>
           <TextField
+            value={calories}
+            onChange={(e) => setCalories(e.target.valueAsNumber)}
+            style={{ width: "243PX" }}
             id="standard-number"
             type="number"
             InputLabelProps={{
@@ -77,8 +109,8 @@ export const ProfileForm = React.forwardRef((props, ref) => {
             }}
           />
         </div>
-        <Button backgroundColor={"#09EB7E"} text={"Save"} />
-      </form>
+        <Button backgroundColor={"#09EB7E"} text={"Save"} onClick={(e) => console.log(e.target)} />
+      </form> */}
     </div>
   )
 });
@@ -94,6 +126,7 @@ const useStyles = makeStyles({
     flexDirection: "column",
     gap: "10px",
     padding: "5px",
+    marginBottom: "80px"
   },
   input: {
     textAlign: "center",
@@ -104,14 +137,13 @@ const useStyles = makeStyles({
   },
   inputArea: {
     width: "76px",
-    color: "#3F3D56"
+    color: "#3F3D56",
   },
   content: {
     display: "flex",
     flexDirection: "column",
     alignItems: "baseline",
-    margin: "30px 15% 15% 15%",
-    gap: "20px",
+    margin: "30px 15%",
     "@media only screen and (max-width: 960px)": {
       margin: "0px"
     },

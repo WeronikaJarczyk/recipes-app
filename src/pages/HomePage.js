@@ -14,7 +14,6 @@ export const HomePage = () => {
   function openPage(page) {
     if (page === "homePage") {
       setIsPageOpen(false);
-      // pageToOpen.current = page;
     } else {
       setIsPageOpen(!isPageOpen);
       pageToOpen.current = page;
