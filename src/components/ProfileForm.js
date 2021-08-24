@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Button from './Button';
 import { useForm } from "react-hook-form";
 import { ReactComponent as Clock } from '../img/clock.svg';
@@ -9,13 +9,54 @@ export const ProfileForm = React.forwardRef((props, ref) => {
 
   const classes = useStyles();
 
-  const [calories, setCalories] = useState();
-
   const { register, handleSubmit } = useForm();
 
-  const onSubmit = async (data) => {
+  const [calories, setCalories] = useState();
+  const [weight, setWeight] = useState();
+  const [height, setHeight] = useState();
+  const [age, setAge] = useState();
+  const [sex, setSex] = useState();
+  const [timesPerWeek, setTimesPerWeek] = useState();
+  const [tempo, setTempo] = useState();
+  const [trainingType, setTrainingType] = useState();
+  const [time, setTime] = useState();
+  const [unit, setUnit] = useState();
 
+  useEffect(() => {
+    (async () => {
+      try {
+        const body = JSON.stringify({ _id: "610a7baf6e8f5e3184fc0377" });
+
+        const data = await fetch('/user/info/get', {
+          method: 'POST',
+          body,
+          headers: {
+            "Content-type": "application/json",
+          },
+        });
+        const userInfo = await data.json();
+
+        setWeight(userInfo.userInfo.weight);
+        setHeight(userInfo.userInfo.height);
+        setAge(userInfo.userInfo.age);
+        setSex(userInfo.userInfo.sex);
+        setTimesPerWeek(userInfo.userInfo.levelOfActivity.timesPerWeek)
+        setTempo(userInfo.userInfo.levelOfActivity.tempo)
+        setTrainingType(userInfo.userInfo.levelOfActivity.trainingType)
+        setTime(userInfo.userInfo.levelOfActivity.time)
+        setUnit("minutes");
+        setCalories(userInfo.userInfo.calorieNeeds);
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    })()
+  }, []);
+
+  const onSubmit = async () => {
     try {
+      // const { timesPerWeek, tempo, trainingType, time, unit } = info;
+
+      const data = { weight, height, age, sex, timesPerWeek, tempo, trainingType, time, unit };
       const body = JSON.stringify({ _id: "610a7baf6e8f5e3184fc0377", data });
 
       const userInfo = await fetch('/user/info', {
@@ -40,20 +81,20 @@ export const ProfileForm = React.forwardRef((props, ref) => {
         <div className={classes.insideContent}>
           <div className={classes.input}>
             Weight
-            <TextField id="weight" className={classes.inputArea} {...register("weight")} />
+            <TextField id="weight" className={classes.inputArea} {...register("weight")} value={weight} onChange={(e) => setWeight(e.target.value)} />
             kg
           </div>
           <div className={classes.input}>
             Height
-            <TextField id="height" className={classes.inputArea} {...register("height")} />
+            <TextField id="height" className={classes.inputArea} {...register("height")} value={height} onChange={(e) => setHeight(e.target.value)} />
             cm
           </div>
           <div className={classes.input}>
             Age
-            <TextField id="age" className={classes.inputArea} {...register("age")} />
+            <TextField id="age" className={classes.inputArea} {...register("age")} value={age} onChange={(e) => setAge(e.target.value)} />
             <div></div>
           </div>
-          <select className={classes.select} name="sex" id="sex-select" {...register("sex")}>
+          <select className={classes.select} name="sex" id="sex-select" {...register("sex")} value={sex} onChange={(e) => setSex(e.target.value)}>
             <option value="male">male</option>
             <option value="female">female</option>
           </select>
@@ -65,28 +106,33 @@ export const ProfileForm = React.forwardRef((props, ref) => {
               {...register("timesPerWeek")}
               id="standard-number"
               type="number"
+              value={timesPerWeek}
+              onChange={(e) => setTimesPerWeek(e.target.value)}
               InputLabelProps={{
                 shrink: true,
               }}
             /> x per week
           </div>
           <div>
-            <select className={classes.select} name="intensity" id="intensity-select" {...register("tempo")}>
+            <select className={classes.select} name="intensity" id="intensity-select" {...register("tempo")}
+              value={tempo} onChange={(e) => setTempo(e.target.value)}>
               <option value="light">Light</option>
               <option value="moderate">Moderate</option>
               <option value="intense">Intense</option>
             </select>
           </div>
           <div>
-            <select className={classes.select} name="trainingType" id="trainingType-select" {...register("trainingType")}>
+            <select className={classes.select} name="trainingType" id="trainingType-select" {...register("trainingType")}
+              value={trainingType} onChange={(e) => setTrainingType(e.target.value)}>
               <option value="strength">Strength Training</option>
               <option value="aero">Aerobic Training</option>
             </select>
           </div>
           <div className={classes.input}>
             <Clock />
-            <TextField className={classes.inputArea} id="time" type="number" {...register("time")} />
-            <select name="timeUnit" id="timeUnit-select" {...register("unit")}>
+            <TextField className={classes.inputArea} id="time" type="number" {...register("time")}
+              value={time} onChange={(e) => setTime(e.target.value)} />
+            <select name="timeUnit" id="timeUnit-select" {...register("unit")} value={unit} onChange={(e) => setUnit(e.target.value)}>
               <option value="hour">h</option>
               <option value="minutes">min</option>
             </select>
@@ -110,7 +156,7 @@ const useStyles = makeStyles({
     flexDirection: "column",
     gap: "10px",
     padding: "5px",
-    marginBottom: "80px"
+    marginTop: "50px"
   },
   input: {
     textAlign: "center",
@@ -127,7 +173,7 @@ const useStyles = makeStyles({
     display: "flex",
     flexDirection: "column",
     alignItems: "baseline",
-    margin: "30px 15%",
+    // margin: "30px 15%",
     "@media only screen and (max-width: 960px)": {
       margin: "0px"
     },
