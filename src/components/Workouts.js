@@ -1,34 +1,46 @@
-import { ReactComponent as Workouts } from '../img/workout.svg';
-import { ReactComponent as Recipes } from '../img/breakfast.svg';
-import { ReactComponent as Water } from '../img/water-bottle.svg';
 import { makeStyles } from '@material-ui/core';
-import chart from '../img/chart.svg';
+import Grid from '@material-ui/core/Grid';
 import React from 'react';
 
-const Main = () => {
+const Workouts = () => {
 
   const classes = useStyles();
 
+  function FormRow() {
+    return (
+      <React.Fragment>
+        <Grid item xs={4}>
+          <div className={classes.card}>
+            Workouts
+          </div>
+        </Grid>
+        <Grid item xs={4}>
+          <div className={classes.card}>
+            Workouts
+          </div>
+        </Grid>
+        <Grid item xs={4}>
+          <div className={classes.card}>
+            Workouts
+          </div>
+        </Grid>
+      </React.Fragment>
+    );
+  }
+
   return (
     <div className={classes.main}>
-      <div className={classes.chart}>
-        <img src={chart} alt="" className={classes.chartImg} />
-      </div>
-
-      <div className={classes.cards}>
-        <div className={classes.card}>
-          <Workouts className={classes.cardImage} />
-          Workouts
-        </div>
-        <div className={classes.card}>
-          <Recipes className={classes.cardImage} />
-          Food Recipes
-        </div>
-        <div className={classes.card}>
-          <Water className={classes.cardImage} />
-          Water
-        </div>
-      </div>
+      <Grid container spacing={1}>
+        <Grid container item xs={12} spacing={3}>
+          <FormRow />
+        </Grid>
+        <Grid container item xs={12} spacing={3}>
+          <FormRow />
+        </Grid>
+        <Grid container item xs={12} spacing={3}>
+          <FormRow />
+        </Grid>
+      </Grid>
     </div>
   )
 };
@@ -52,19 +64,6 @@ const useStyles = makeStyles({
       height: "100%",
       justifyContent: "space-evenly"
     }
-  },
-  chartImg: {
-    width: "80%",
-    "@media only screen and (max-width: 960px)": {
-      width: "70%"
-    },
-    "@media only screen and (max-width: 600px)": {
-      width: "50%"
-    }
-  },
-  chart: {
-    display: "flex",
-    justifyContent: "center"
   },
   cards: {
     display: "flex",
@@ -100,10 +99,6 @@ const useStyles = makeStyles({
       height: "177px"
     }
   },
-  cardImage: {
-    width: "129px",
-    height: "138px"
-  }
 });
 
-export default Main;
+export default Workouts;

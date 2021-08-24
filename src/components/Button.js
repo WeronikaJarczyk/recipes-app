@@ -5,7 +5,7 @@ const Button = (props) => {
   const classes = useSyles(props);
 
   return (
-    <button className={classes.button}>
+    <button className={classes.button} onClick={props.onClick}>
       {props.text}
     </button>
   )
@@ -18,7 +18,7 @@ const useSyles = makeStyles({
     width: "243px",
     height: "35px",
     borderRadius: "15px",
-    backgroundColor: (props) => props.backgroundColor
+    backgroundColor: (props) => props?.backgroundColor ?? "#3F3D56"
   }
 });
 

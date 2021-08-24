@@ -14,7 +14,7 @@ export const ProfileForm = React.forwardRef((props, ref) => {
   const { register, handleSubmit } = useForm();
 
   const onSubmit = async (data) => {
-    console.log("submit info");
+
     try {
       const body = JSON.stringify({ _id: "610a7baf6e8f5e3184fc0377", data });
 
@@ -91,26 +91,10 @@ export const ProfileForm = React.forwardRef((props, ref) => {
               <option value="minutes">min</option>
             </select>
           </div>
-          <Button backgroundColor={"#3F3D56"} text={"Calculate"} />
+          <Button text={"Calculate"} />
         </div>
       </form>
       <CaloriesForm calories={calories} setCalories={setCalories} />
-      {/* <form className={classes.insideContent}>
-        Your Calorie Needs:
-        <div>
-          <TextField
-            value={calories}
-            onChange={(e) => setCalories(e.target.valueAsNumber)}
-            style={{ width: "243PX" }}
-            id="standard-number"
-            type="number"
-            InputLabelProps={{
-              shrink: true,
-            }}
-          />
-        </div>
-        <Button backgroundColor={"#09EB7E"} text={"Save"} onClick={(e) => console.log(e.target)} />
-      </form> */}
     </div>
   )
 });

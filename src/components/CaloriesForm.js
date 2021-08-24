@@ -11,7 +11,7 @@ const CaloriesForm = ({ calories, setCalories }) => {
 
   const updateCalories = async (data) => {
     const { calories } = data;
-    console.log(calories);
+
     if (calories === "" || !calories) {
       return;
     }
@@ -43,7 +43,7 @@ const CaloriesForm = ({ calories, setCalories }) => {
           {...register("calories")}
           value={calories}
           onChange={(e) => setCalories(e.target.valueAsNumber)}
-          style={{ width: "243PX" }}
+          style={{ width: "243px" }}
           id="standard-number"
           type="number"
           InputLabelProps={{
